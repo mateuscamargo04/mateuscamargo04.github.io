@@ -1,0 +1,639 @@
+/* Configurações Gerais */
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Evita scroll horizontal no celular */
+    background-color: #fff;
+}
+
+.wave{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	z-index: -1;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 7rem;
+    padding: 0 2rem;
+}
+
+.img{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.img img{
+	width: 500px;
+}
+
+.login-content{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	text-align: center;
+}
+
+form{
+	width: 360px;
+}
+
+.login-content img{
+    height: 100px;
+}
+
+.login-content h2{
+	margin: 15px 0;
+	color: #333;
+	text-transform: uppercase;
+	font-size: 2.9rem;
+}
+
+/* Estilo dos Inputs */
+.login-content .input-div{
+	position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.login-content .input-div.one{
+	margin-top: 0;
+}
+
+.i{
+	color: #d9d9d9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.i i{
+	transition: .3s;
+}
+
+.input-div > div{
+    position: relative;
+	height: 45px;
+}
+
+.input-div > div > h5{
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #999;
+	font-size: 18px;
+	transition: .3s;
+}
+
+.input-div:before, .input-div:after{
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	width: 0%;
+	height: 2px;
+	background-color: #ffffff; /* Mudei para uma cor visível (Verde/Padrão) */
+	transition: .4s;
+}
+
+.input-div:before{
+	right: 50%;
+}
+
+.input-div:after{
+	left: 50%;
+}
+
+.input-div.focus:before, .input-div.focus:after{
+	width: 50%;
+}
+
+.input-div.focus > div > h5{
+	top: -1px;
+	font-size: 15px;
+}
+
+.input-div.focus > .i > i{
+	color: #38d39f;
+}
+
+.input-div > div > input{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+	outline: none;
+	background: none;
+	padding: 0.5rem 0.7rem;
+	font-size: 1.2rem;
+	color: #555;
+	font-family: 'poppins', sans-serif;
+}
+
+.input-div.pass{
+	margin-bottom: 4px;
+}
+
+a{
+	display: block;
+	text-align: right;
+	text-decoration: none;
+	color: #999;
+	font-size: 0.9rem;
+	transition: .3s;
+}
+
+a:hover{
+	color: #000000;
+}
+
+.btn{
+	display: block;
+	width: 100%;
+	height: 50px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #000000, #000000, #000000);
+	background-size: 200%;
+	font-size: 1.2rem;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 1rem 0;
+	cursor: pointer;
+	transition: .5s;
+}
+
+.btn:hover{
+	background-position: right;
+	transform: translateY(3px);
+}
+
+/* =============================================
+   OTIMIZAÇÃO PARA CELULAR (RESPONSIVIDADE)
+   ============================================= */
+
+@media screen and (max-width: 1050px){
+	.container{
+		grid-gap: 5rem;
+	}
+}
+
+@media screen and (max-width: 1000px){
+	form{
+		width: 290px;
+	}
+
+	.login-content h2{
+        font-size: 2.4rem;
+        margin: 8px 0;
+	}
+
+	.img img{
+		width: 400px;
+	}
+}
+
+/* ESTA É A PARTE QUE CORRIGE O CELULAR */
+@media screen and (max-width: 900px){
+    .wave, .img{
+        display: none; /* Remove a onda e o boneco no celular */
+    }
+
+    .container{
+        grid-template-columns: 1fr; /* Força uma única coluna */
+    }
+
+    .login-content{
+        justify-content: center; /* Centraliza o formulário */
+    }
+
+    form{
+        width: 100%; /* Faz o formulário usar a largura da tela */
+        max-width: 320px;
+    }
+
+    body {
+        overflow: auto; /* Permite scroll se necessário no celular */
+    }
+}
+/* =============================================
+   CORREÇÃO PARA CELULAR (MOBILE)
+   ============================================= */
+
+@media screen and (max-width: 900px) {
+    /* 1. Removemos a onda e a imagem lateral que estão bagunçando tudo */
+    .wave, .img {
+        display: none !important;
+    }
+
+    /* 2. Fazemos o fundo ficar branco e o conteúdo centralizado */
+    body {
+        background-color: #fff;
+        overflow: auto;
+    }
+
+    .container {
+        grid-template-columns: 1fr; /* Força uma coluna única */
+        padding: 0 1.5rem;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 3. Ajustamos o formulário para ficar legível e bonito */
+    .login-content {
+        width: 100%;
+        justify-content: center;
+    }
+
+    form {
+        width: 100%;
+        max-width: 340px; /* Tamanho ideal para as mãos */
+    }
+
+    /* 4. Ajustamos o título para não ficar gigante no celular */
+    .login-content h2 {
+        font-size: 2.2rem;
+        margin: 10px 0;
+    }
+
+    /* 5. Damos destaque aos campos (Inputs) */
+    .input-div {
+        margin: 20px 0 !important;
+    }
+}
+@media screen and (max-width: 900px) {
+    /* Esconde a onda e o boneco lateral */
+    .wave, .img {
+        display: none !important;
+    }
+
+    /* Força o fundo a ser branco e remove o scroll lateral */
+    body {
+        background: #fff !important;
+        overflow-x: hidden;
+    }
+
+    /* Centraliza o conteúdo no meio da tela */
+    .container {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        grid-template-columns: 1fr !important;
+        padding: 0 20px;
+    }
+
+    /* Ajusta o formulário para ocupar a largura correta */
+    .login-content {
+        width: 100%;
+        justify-content: center;
+    }
+
+    form {
+        width: 100% !important;
+        max-width: 310px;
+    }
+
+    /* Reduz o tamanho do texto Welcome para caber em telas pequenas */
+    .login-content h2 {
+        font-size: 2.2rem !important;
+    }
+}
+
+.create {
+    color: #000;
+    text-align: center;
+    transition: 0.3s;
+}
+.create:hover {
+    color: #333;
+}
+#page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: #000; /* cor da animação */
+  z-index: 9999;
+  transition: width 0.8s ease;
+}
+.social-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.social-divider::before, .social-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.social-divider span {
+    padding: 0 10px;
+	margin-top: 10px;
+}
+
+/* Container dos Botões Sociais */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 75px;
+}
+
+/* Botão Social Base */
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    border-radius: 25px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* CORREÇÃO DAS IMAGENS: Isso impede que os logos fiquem gigantes */
+.social-btn img {
+    width: 20px !important; /* Tamanho fixo para o logo */
+    height: 20px !important;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+/* Estilos específicos (Opcional) */
+.social-btn.google { border: 1px solid #000; color: #000; cursor: pointer;}
+.social-btn.facebook { background: #ffffff; color: #000000; border: 1px solid #000; cursor: pointer;}
+.social-btn.apple { border: 1px solid #000000; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer;}
+/* Isso centraliza o conteúdo principal na tela */
+body {
+    display: flex;
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: center;     /* Centraliza na vertical */
+    min-height: 100vh;       /* Garante que o corpo ocupe a tela toda */
+    margin: 0;
+}
+
+/* O container do seu formulário */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre os campos */
+    text-align: center;
+}
+
+/* Joga a parte do Google/Facebook mais para baixo */
+.social-login {
+    margin-top: 50px; /* Cria um distanciamento da parte de e-mail/senha */
+    opacity: 0.8;     /* Deixa um pouco mais discreto, se quiser */
+}
+.social-btn.google:hover {
+	transform: translateY(3px);
+}
+.social-btn.facebook:hover {
+	transform: translateY(3px);
+}
+.social-btn.apple:hover {
+	transform: translateY(3px);
+}
+
+/* Localize e substitua estas partes no seu create.css */
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 150px; /* Reduzi drasticamente de 75px para 15px */
+}
+
+.create {
+    display: block;
+    color: #000;
+    text-align: center;
+    transition: 0.3s;
+    text-decoration: underline;
+    font-size: 0.9rem;
+    margin-top: -100px; /* Usei margem negativa opcional para "grudar" na Apple */
+}
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 40px; /* Empurra para baixo do botão principal */
+    margin-bottom: 20px;
+}
+
+/* O link de baixo */
+.create {
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.7; /* Deixa um pouco mais discreto que o botão principal */
+}
+.img1 {
+	border-radius: 999px;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+}
+/* ===== FOSTERN MOBILE LOGIN FIX ULTIMATE ===== */
+@media (max-width: 900px) {
+
+  /* Remove lixo visual no mobile */
+  .wave, 
+  .img, 
+  .img img,
+  .illustration,
+  .charts,
+  .left-side {
+    display: none !important;
+  }
+
+  /* Tela inteira login */
+  body {
+    background: #fff !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    width: 100% !important;
+    height: 100vh !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 0 24px !important;
+  }
+
+  .login-content {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  form {
+    width: 100% !important;
+    max-width: 360px;
+  }
+
+  /* Logo */
+  .img1 {
+    width: 90px;
+    margin-bottom: 12px;
+  }
+
+  /* Título */
+  .login-content h2 {
+    font-size: 2.2rem !important;
+    margin-bottom: 24px;
+  }
+
+  /* Inputs grandes (Apple style) */
+  .input-div {
+    margin: 20px 0 !important;
+  }
+
+  .input-div input {
+    font-size: 1.1rem !important;
+    padding: 14px 0 !important;
+  }
+
+  /* Botão login */
+  .btn {
+    height: 56px !important;
+    font-size: 1.1rem !important;
+    border-radius: 999px;
+  }
+
+  /* Social login */
+  .social-login {
+    margin-top: 24px !important;
+    gap: 14px;
+  }
+
+  .social-btn {
+    height: 50px;
+    font-size: 0.95rem;
+    border-radius: 999px;
+  }
+
+  .social-btn img {
+    width: 18px;
+  }
+
+  /* Links */
+  a, .create {
+    font-size: 0.9rem;
+    text-align: center;
+    display: block;
+  }
+}
+/* ========== FOSTERN MOBILE FORCE FIX ========== */
+@media (max-width: 900px) {
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wave, .img {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .login-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  form {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .img1 {
+    width: 90px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 2.3rem !important;
+  }
+
+  .input-div {
+    margin: 22px 0;
+  }
+
+  .btn {
+    height: 56px;
+    border-radius: 999px;
+    font-size: 1.1rem;
+  }
+
+  .social-btn {
+    height: 50px;
+    border-radius: 999px;
+  }
+
+  .social-login {
+    margin-top: 20px;
+  }
+
+  a, .create {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
