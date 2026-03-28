@@ -1,0 +1,523 @@
+avo · HTML
+Copiar
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia Don Gustavo | Matão SP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@200;300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#C0392B;
+  --red-light:#E74C3C;
+  --red-dark:#922B21;
+  --gold:#C9A84C;
+  --black:#080808;
+  --dark:#0f0f0f;
+  --card:#161616;
+  --text:#F0EDE8;
+  --muted:#888;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:'Raleway',sans-serif;overflow-x:hidden;cursor:none}
+ 
+/* CURSOR */
+.cursor{position:fixed;width:8px;height:8px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.1s;mix-blend-mode:difference}
+.cursor-follower{position:fixed;width:32px;height:32px;border:1px solid rgba(192,57,43,0.5);border-radius:50%;pointer-events:none;z-index:9998;transition:all 0.15s ease}
+ 
+/* LOADER */
+.loader{position:fixed;inset:0;z-index:9000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.8s,visibility 0.8s}
+.loader.hide{opacity:0;visibility:hidden}
+.loader-logo{font-family:'Great Vibes',cursive;font-size:4rem;color:var(--red);animation:pulse 1s ease infinite alternate}
+.loader-bar-wrap{width:200px;height:1px;background:rgba(255,255,255,0.1);margin-top:2rem;overflow:hidden}
+.loader-bar{height:100%;background:var(--red);width:0;animation:load 1.8s ease forwards}
+@keyframes pulse{from{opacity:0.4}to{opacity:1}}
+@keyframes load{to{width:100%}}
+ 
+/* PARTICLES */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+ 
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 5vw;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s}
+nav.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);padding:1rem 5vw;border-bottom:1px solid rgba(192,57,43,0.2)}
+.nav-logo{font-family:'Great Vibes',cursive;font-size:2.2rem;color:var(--red);letter-spacing:2px}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:rgba(240,237,232,0.6);text-decoration:none;font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;font-weight:500;transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transition:transform 0.3s;transform-origin:center}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{background:transparent;border:1px solid var(--red);color:var(--red);padding:0.7rem 2rem;text-decoration:none;font-size:0.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;transition:all 0.3s;position:relative;overflow:hidden}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;z-index:-1}
+.nav-cta:hover{color:#fff}
+.nav-cta:hover::before{transform:scaleX(1)}
+ 
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=1600&q=80') center/cover;opacity:0.07;transform:scale(1.1);animation:slowzoom 20s ease infinite alternate}
+@keyframes slowzoom{from{transform:scale(1.1)}to{transform:scale(1.2)}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(192,57,43,0.08) 0%,transparent 70%)}
+.hero-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(192,57,43,0.3),transparent);transform:translateX(-50%)}
+.hero-content{position:relative;z-index:2}
+.hero-pre{font-size:0.65rem;letter-spacing:8px;text-transform:uppercase;color:var(--red);margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s 2s ease forwards}
+.hero-script{font-family:'Great Vibes',cursive;font-size:clamp(5rem,14vw,13rem);color:var(--red);line-height:0.85;opacity:0;animation:fadeUp 1s 2.2s ease forwards;text-shadow:0 0 80px rgba(192,57,43,0.3)}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(0.9rem,2.5vw,1.3rem);letter-spacing:12px;text-transform:uppercase;color:rgba(240,237,232,0.7);margin-top:1rem;opacity:0;animation:fadeUp 1s 2.4s ease forwards}
+.hero-divider{width:80px;height:1px;background:var(--red);margin:2rem auto;opacity:0;animation:fadeUp 1s 2.6s ease forwards}
+.hero-sub{font-size:clamp(0.85rem,1.5vw,1rem);font-weight:300;color:var(--muted);letter-spacing:3px;text-transform:uppercase;opacity:0;animation:fadeUp 1s 2.8s ease forwards}
+.hero-btns{display:flex;gap:1.5rem;justify-content:center;margin-top:3rem;opacity:0;animation:fadeUp 1s 3s ease forwards;flex-wrap:wrap}
+.btn-red{background:var(--red);color:#fff;padding:1.1rem 3rem;text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;transition:all 0.3s;position:relative;overflow:hidden}
+.btn-red::after{content:'';position:absolute;inset:0;background:var(--red-light);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;z-index:-1}
+.btn-red:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(192,57,43,0.4)}
+.btn-outline{border:1px solid rgba(240,237,232,0.25);color:var(--text);padding:1.1rem 3rem;text-decoration:none;font-size:0.75rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;transition:all 0.3s}
+.btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-3px)}
+.hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 1s 3.5s ease forwards}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrollline 2s ease infinite}
+@keyframes scrollline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.scroll-text{font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
+ 
+/* MARQUEE */
+.marquee-wrap{background:var(--red);padding:1rem 0;overflow:hidden;position:relative;z-index:2}
+.marquee-inner{display:inline-flex;animation:marquee 25s linear infinite;white-space:nowrap}
+.marquee-item{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:6px;text-transform:uppercase;color:rgba(255,255,255,0.9);padding:0 3rem;display:flex;align-items:center;gap:3rem}
+.marquee-item::after{content:'✦';opacity:0.5;font-size:0.6rem}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+ 
+/* ABOUT */
+.section{padding:8rem 5vw;position:relative}
+.section-inner{max-width:1200px;margin:0 auto}
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.9s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.tag{font-size:0.65rem;letter-spacing:6px;text-transform:uppercase;color:var(--red);margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem}
+.tag::before{content:'';width:40px;height:1px;background:var(--red)}
+.big-title{font-family:'Cinzel',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:4px;line-height:1;margin-bottom:2rem}
+.big-title span{color:var(--red);font-family:'Great Vibes',cursive;font-size:1.3em;letter-spacing:0}
+ 
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-top:4rem}
+.about-img-wrap{position:relative}
+.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(20%) contrast(1.1);display:block}
+.about-img-border{position:absolute;top:2rem;left:2rem;right:-2rem;bottom:-2rem;border:1px solid rgba(192,57,43,0.3);z-index:-1}
+.about-badge{position:absolute;bottom:-2rem;left:-2rem;background:var(--red);padding:2rem;text-align:center}
+.about-badge-num{font-family:'Cinzel',serif;font-size:3rem;font-weight:900;color:#fff;line-height:1}
+.about-badge-text{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:0.3rem}
+.about-text p{font-size:1.05rem;font-weight:300;line-height:2;color:#aaa;margin-bottom:1.5rem}
+.about-features{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.feature{display:flex;align-items:center;gap:1.25rem;padding:1.2rem 1.5rem;border:1px solid rgba(255,255,255,0.06);background:var(--card);transition:all 0.3s}
+.feature:hover{border-color:rgba(192,57,43,0.3);transform:translateX(6px)}
+.feature-icon{font-size:1.2rem;width:40px;text-align:center}
+.feature-text{font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;font-weight:500}
+ 
+/* SERVICES */
+.services-bg{background:var(--dark)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;margin-top:4rem}
+.service-card{background:var(--card);padding:3rem 2.5rem;position:relative;overflow:hidden;cursor:default;transition:all 0.4s}
+.service-card::before{content:'';position:absolute;inset:0;background:var(--red);transform:translateY(100%);transition:transform 0.4s ease;z-index:0}
+.service-card:hover::before{transform:translateY(0)}
+.service-card:hover .service-name,.service-card:hover .service-desc,.service-card:hover .service-price{color:#fff;position:relative;z-index:1}
+.service-card:hover .s-num{color:rgba(255,255,255,0.1)}
+.s-num{font-family:'Cinzel',serif;font-size:5rem;font-weight:900;color:rgba(192,57,43,0.08);line-height:1;margin-bottom:1.5rem;transition:color 0.4s}
+.service-name{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;position:relative;z-index:1;transition:color 0.4s}
+.service-desc{font-size:0.9rem;color:var(--muted);line-height:1.8;font-weight:300;position:relative;z-index:1;transition:color 0.4s}
+.service-price{margin-top:2rem;font-family:'Cinzel',serif;font-size:1.1rem;color:var(--red);letter-spacing:3px;position:relative;z-index:1;transition:color 0.4s}
+ 
+/* HOURS */
+.hours-section{background:var(--black)}
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:4rem}
+.hours-list{display:flex;flex-direction:column;gap:1px}
+.hour-item{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 2rem;background:var(--card);border-left:2px solid transparent;transition:all 0.3s}
+.hour-item:hover,.hour-item.open{border-left-color:var(--red);background:#181818}
+.hour-day{font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;font-weight:500}
+.hour-time{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--red);letter-spacing:2px}
+.hour-closed{color:var(--muted);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase}
+.open-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);color:var(--red);padding:0.4rem 1rem;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:2rem}
+.open-badge::before{content:'';width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.5s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hours-visual{position:relative;padding:3rem}
+.clock-wrap{width:240px;height:240px;margin:0 auto;position:relative}
+.clock-face{width:100%;height:100%;border-radius:50%;border:1px solid rgba(192,57,43,0.3);background:var(--card);display:flex;align-items:center;justify-content:center;position:relative}
+.clock-center{width:8px;height:8px;background:var(--red);border-radius:50%;position:absolute;z-index:3}
+.hand{position:absolute;bottom:50%;left:50%;transform-origin:bottom center;background:var(--text);border-radius:2px}
+.hand-hour{width:2px;height:60px;margin-left:-1px;background:var(--red)}
+.hand-min{width:1.5px;height:80px;margin-left:-0.75px}
+.hand-sec{width:1px;height:90px;margin-left:-0.5px;background:var(--red-light)}
+.hours-quote{text-align:center;margin-top:2rem}
+.quote-text{font-family:'Great Vibes',cursive;font-size:2.5rem;color:var(--red);line-height:1.4}
+.quote-sub{font-size:0.65rem;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-top:0.5rem}
+ 
+/* CTA BANNER */
+.cta-banner{position:relative;padding:8rem 5vw;overflow:hidden;text-align:center}
+.cta-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&q=80') center/cover;opacity:0.06}
+.cta-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(192,57,43,0.15),transparent)}
+.cta-content{position:relative;z-index:2}
+.cta-title{font-family:'Great Vibes',cursive;font-size:clamp(4rem,10vw,8rem);color:var(--red);line-height:1;margin-bottom:1rem;text-shadow:0 0 60px rgba(192,57,43,0.3)}
+.cta-sub{font-family:'Cinzel',serif;font-size:clamp(0.8rem,2vw,1.1rem);letter-spacing:8px;text-transform:uppercase;color:rgba(240,237,232,0.5);margin-bottom:3rem}
+.cta-btns{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+ 
+/* LOCATION */
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4rem;align-items:start}
+.info-card{background:var(--card);border:1px solid rgba(255,255,255,0.05);padding:2.5rem}
+.info-card-title{font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(192,57,43,0.2)}
+.info-row{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem}
+.info-icon{color:var(--red);font-size:0.9rem;margin-top:2px;min-width:20px}
+.info-label{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem}
+.info-val{font-size:0.95rem;color:var(--text);font-weight:300;line-height:1.6}
+.map-wrap{border:1px solid rgba(192,57,43,0.2);overflow:hidden;height:100%;min-height:400px}
+.map-wrap iframe{width:100%;height:100%;min-height:400px;border:none;filter:grayscale(60%) contrast(1.2) invert(0.9)}
+ 
+/* FOOTER */
+footer{background:#050505;border-top:1px solid rgba(192,57,43,0.15);padding:4rem 5vw}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem}
+.footer-logo{font-family:'Great Vibes',cursive;font-size:3rem;color:var(--red)}
+.footer-links{display:flex;gap:2rem;list-style:none}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;transition:color 0.3s}
+.footer-links a:hover{color:var(--red)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.04);margin-top:3rem;padding-top:2rem;text-align:center}
+.footer-copy{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(136,136,136,0.5)}
+ 
+/* WHATSAPP */
+.wa-btn{position:fixed;bottom:2rem;right:2rem;z-index:500;display:flex;align-items:center;gap:0.75rem;background:#25D366;color:#fff;padding:0.9rem 1.5rem;text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:all 0.3s;box-shadow:0 8px 32px rgba(37,211,102,0.35)}
+.wa-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,0.5)}
+.wa-pulse{width:10px;height:10px;background:rgba(255,255,255,0.8);border-radius:50%;animation:blink 2s ease infinite}
+ 
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+ 
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .about-grid,.hours-grid,.location-grid{grid-template-columns:1fr}
+  .about-badge{display:none}
+  .services-grid{grid-template-columns:1fr}
+  nav{padding:1.2rem 5vw}
+}
+</style>
+</head>
+<body>
+ 
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="follower"></div>
+ 
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-logo">Don Gustavo</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+ 
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
+ 
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Don Gustavo</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#horarios">Horários</a></li>
+    <li><a href="#localizacao">Localização</a></li>
+  </ul>
+  <a href="https://api.whatsapp.com/send?phone=5516991900939&text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20na%20Barbearia%20Don%20Gustavo." class="nav-cta" target="_blank">Agendar</a>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <div class="hero-pre">Matão, SP · Cuidado · Estilo · Conforto</div>
+    <div class="hero-script">Don Gustavo</div>
+    <div class="hero-title">Barbearia</div>
+    <div class="hero-divider"></div>
+    <div class="hero-sub">Ambiente Climatizado · Bebidas · Agendamento Online</div>
+    <div class="hero-btns">
+      <a href="https://api.whatsapp.com/send?phone=5516991900939&text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20na%20Barbearia%20Don%20Gustavo." class="btn-red" target="_blank">📅 Agendar Horário</a>
+      <a href="#servicos" class="btn-outline">Ver Serviços</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Role para baixo</div>
+  </div>
+</section>
+ 
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <div class="marquee-item">Corte de Cabelo</div>
+    <div class="marquee-item">Corte de Barba</div>
+    <div class="marquee-item">Don Gustavo</div>
+    <div class="marquee-item">Matão SP</div>
+    <div class="marquee-item">Ambiente Climatizado</div>
+    <div class="marquee-item">Agendamento Fácil</div>
+    <div class="marquee-item">Corte de Cabelo</div>
+    <div class="marquee-item">Corte de Barba</div>
+    <div class="marquee-item">Don Gustavo</div>
+    <div class="marquee-item">Matão SP</div>
+    <div class="marquee-item">Ambiente Climatizado</div>
+    <div class="marquee-item">Agendamento Fácil</div>
+  </div>
+</div>
+ 
+<!-- SOBRE -->
+<section class="section" id="sobre">
+  <div class="section-inner">
+    <div class="tag reveal">Nossa história</div>
+    <h2 class="big-title reveal">CUIDADO,<br>ESTILO &<br><span>Conforto</span></h2>
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80" alt="Barbearia Don Gustavo" class="about-img">
+        <div class="about-img-border"></div>
+        <div class="about-badge">
+          <div class="about-badge-num">+</div>
+          <div class="about-badge-text">anos de experiência</div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p>A Barbearia Don Gustavo é muito mais do que um lugar para cortar o cabelo. É um espaço pensado para quem valoriza cuidado, estilo e conforto em cada detalhe da sua aparência.</p>
+        <p>Com ambiente climatizado, bebidas à disposição e atendimento de alto nível, cada visita é uma experiência. Agende com facilidade pelo WhatsApp ou AppBarber e chegue sem filas.</p>
+        <div class="about-features">
+          <div class="feature">
+            <div class="feature-icon">❄️</div>
+            <div class="feature-text">Ambiente Climatizado</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🍺</div>
+            <div class="feature-text">Bebidas incluídas</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">📱</div>
+            <div class="feature-text">Agendamento pelo WhatsApp</div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">⭐</div>
+            <div class="feature-text">Atendimento Premium</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- SERVIÇOS -->
+<section class="section services-bg" id="servicos">
+  <div class="section-inner">
+    <div class="tag reveal">O que oferecemos</div>
+    <h2 class="big-title reveal">NOSSOS<br>SERVIÇOS</h2>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="s-num">01</div>
+        <div class="service-name">Corte de Cabelo</div>
+        <p class="service-desc">Do clássico ao moderno. Cada corte é executado com precisão e técnica, realçando o melhor do seu estilo pessoal.</p>
+        <div class="service-price">AGENDE JÁ →</div>
+      </div>
+      <div class="service-card">
+        <div class="s-num">02</div>
+        <div class="service-name">Corte de Barba</div>
+        <p class="service-desc">Barba delineada, modelada e aparada com maestria. Do cavanhaque à barba completa, sempre impecável.</p>
+        <div class="service-price">AGENDE JÁ →</div>
+      </div>
+      <div class="service-card">
+        <div class="s-num">03</div>
+        <div class="service-name">Corte + Barba</div>
+        <p class="service-desc">O combo completo para quem quer sair 100%. Cabelo e barba tratados com todo cuidado que você merece.</p>
+        <div class="service-price">AGENDE JÁ →</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- HORÁRIOS -->
+<section class="section hours-section" id="horarios">
+  <div class="section-inner">
+    <div class="tag reveal">Quando atendemos</div>
+    <h2 class="big-title reveal">HORÁRIOS DE<br>FUNCIONAMENTO</h2>
+    <div class="hours-grid">
+      <div class="reveal">
+        <div class="open-badge" id="open-badge">Verificando horário...</div>
+        <div class="hours-list">
+          <div class="hour-item" id="seg-sex">
+            <div class="hour-day">Segunda — Sexta</div>
+            <div class="hour-time">09:00 — 20:00</div>
+          </div>
+          <div class="hour-item" id="sab">
+            <div class="hour-day">Sábado</div>
+            <div class="hour-time">08:00 — 19:00</div>
+          </div>
+          <div class="hour-item">
+            <div class="hour-day">Domingo</div>
+            <div class="hour-closed">Fechado</div>
+          </div>
+        </div>
+      </div>
+      <div class="hours-visual reveal">
+        <div class="clock-wrap">
+          <div class="clock-face">
+            <div class="clock-center"></div>
+            <div class="hand hand-hour" id="hand-hour"></div>
+            <div class="hand hand-min" id="hand-min"></div>
+            <div class="hand hand-sec" id="hand-sec"></div>
+          </div>
+        </div>
+        <div class="hours-quote">
+          <div class="quote-text">Seu tempo, seu estilo</div>
+          <div class="quote-sub">Sem fila · Sem espera · Só você</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CTA -->
+<div class="cta-banner" id="agendar">
+  <div class="cta-bg"></div>
+  <div class="cta-overlay"></div>
+  <div class="cta-content">
+    <div class="cta-title reveal">Pronto?</div>
+    <div class="cta-sub reveal">Marque o seu horário agora mesmo</div>
+    <div class="cta-btns reveal">
+      <a href="https://api.whatsapp.com/send?phone=5516991900939&text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20na%20Barbearia%20Don%20Gustavo." class="btn-red" target="_blank">💬 Agendar pelo WhatsApp</a>
+    </div>
+  </div>
+</div>
+ 
+<!-- LOCALIZAÇÃO -->
+<section class="section" id="localizacao">
+  <div class="section-inner">
+    <div class="tag reveal">Onde estamos</div>
+    <h2 class="big-title reveal">VENHA NOS<br>VISITAR</h2>
+    <div class="location-grid">
+      <div class="info-card reveal">
+        <div class="info-card-title">Informações de Contato</div>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Endereço</div>
+            <div class="info-val">Av. Alberto Benassi, 344<br>Res. Olívio Benassi<br>Nova Matão — SP, 15990-585</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📱</div>
+          <div>
+            <div class="info-label">WhatsApp</div>
+            <div class="info-val">(16) 99190-0939</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Horário de Funcionamento</div>
+            <div class="info-val">Seg–Sex: 09h às 20h<br>Sábado: 08h às 19h</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📅</div>
+          <div>
+            <div class="info-label">Agendamento</div>
+            <div class="info-val">Via WhatsApp — clique no botão e a mensagem já vem escrita, só enviar!</div>
+          </div>
+        </div>
+        <a href="https://api.whatsapp.com/send?phone=5516991900939&text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20na%20Barbearia%20Don%20Gustavo." class="btn-red" style="display:inline-block;margin-top:1rem" target="_blank">💬 Falar no WhatsApp</a>
+      </div>
+      <div class="map-wrap reveal">
+        <iframe src="https://maps.google.com/maps?q=Avenida+Alberto+Benassi,+344,+Matão+SP&output=embed" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Don Gustavo</div>
+    <ul class="footer-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#horarios">Horários</a></li>
+      <li><a href="#localizacao">Localização</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Barbearia Don Gustavo · Matão, SP · Todos os direitos reservados</div>
+  </div>
+</footer>
+ 
+<!-- WHATSAPP FLOAT -->
+<a href="https://api.whatsapp.com/send?phone=5516991900939&text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20na%20Barbearia%20Don%20Gustavo." class="wa-btn" target="_blank">
+  <div class="wa-pulse"></div>
+  Agendar Agora
+</a>
+ 
+<script>
+// LOADER
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hide')},2000)});
+ 
+// CUSTOM CURSOR
+const cursor=document.getElementById('cursor'),follower=document.getElementById('follower');
+let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-4+'px';cursor.style.top=my-4+'px'});
+(function animate(){fx+=(mx-fx)*0.12;fy+=(my-fy)*0.12;follower.style.left=fx-16+'px';follower.style.top=fy-16+'px';requestAnimationFrame(animate)})();
+document.querySelectorAll('a,button,.service-card,.feature').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(3)';follower.style.transform='scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';follower.style.transform='scale(1)'});
+});
+ 
+// NAV SCROLL
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)});
+ 
+// REVEAL ON SCROLL
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.1});
+reveals.forEach(r=>io.observe(r));
+ 
+// CLOCK
+function updateClock(){
+  const now=new Date();
+  const h=now.getHours()%12,m=now.getMinutes(),s=now.getSeconds();
+  document.getElementById('hand-hour').style.transform=`rotate(${(h/12)*360+(m/60)*30}deg)`;
+  document.getElementById('hand-min').style.transform=`rotate(${(m/60)*360}deg)`;
+  document.getElementById('hand-sec').style.transform=`rotate(${(s/60)*360}deg)`;
+}
+updateClock();setInterval(updateClock,1000);
+ 
+// OPEN STATUS
+function checkOpen(){
+  const now=new Date();
+  const day=now.getDay(),h=now.getHours(),m=now.getMinutes();
+  const t=h*60+m;
+  const badge=document.getElementById('open-badge');
+  let open=false;
+  if(day>=1&&day<=5&&t>=540&&t<1200)open=true;
+  if(day===6&&t>=480&&t<1140)open=true;
+  badge.innerHTML=open?'<span style="width:6px;height:6px;background:var(--red);border-radius:50%;display:inline-block;margin-right:6px;animation:blink 1.5s infinite"></span> Aberto agora':'⬤ Fechado no momento';
+  badge.style.borderColor=open?'rgba(192,57,43,0.3)':'rgba(100,100,100,0.3)';
+  badge.style.color=open?'var(--red)':'var(--muted)';
+  badge.style.background=open?'rgba(192,57,43,0.1)':'rgba(100,100,100,0.1)';
+  if(day>=1&&day<=5)document.getElementById('seg-sex').classList.add('open');
+  if(day===6)document.getElementById('sab').classList.add('open');
+}
+checkOpen();
+ 
+// PARTICLES
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight});
+const particles=[];
+for(let i=0;i<60;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+0.5,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,o:Math.random()*0.4+0.05})}
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(192,57,43,${p.o})`;ctx.fill();
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+</script>
+</body>
+</html>
